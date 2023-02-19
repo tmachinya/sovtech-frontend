@@ -1,0 +1,63 @@
+<div class="container">
+  <div class="mat-elevation-z8 table-container" style="max-height: 400px;">
+    <div class="search-div">
+      <mat-form-field class="search-form-field left">
+        <input matInput
+               placeholder="Search"
+               autocomplete="off"
+               [(ngModel)]="searchKey"
+               (keyup)="applyFilter()">
+        <button matSuffix
+                *ngIf="searchKey"
+                aria-label="Clear"
+                matTextSuffix
+                mat-icon-button
+                (click)="onSearchClear()">
+          <mat-icon>close</mat-icon>
+        </button>
+
+      </mat-form-field>
+
+    </div>
+    <mat-progress-bar *ngIf="isLoading" mode="indeterminate"></mat-progress-bar>
+    <mat-table [dataSource]="dataSource" matSort >
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+        <mat-cell *matCellDef="let person"> {{person.name}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="height">
+        <mat-header-cell *matHeaderCellDef> Height</mat-header-cell>
+        <mat-cell *matCellDef="let person"> {{person.height}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="mass">
+        <mat-header-cell *matHeaderCellDef> Mass</mat-header-cell>
+        <mat-cell *matCellDef="let person"> {{person.mass}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="gender">
+        <mat-header-cell *matHeaderCellDef> Gender</mat-header-cell>
+        <mat-cell *matCellDef="let person"> {{person.gender}} </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="homeworld">
+        <mat-header-cell *matHeaderCellDef> Homeworld</mat-header-cell>
+        <mat-cell *matCellDef="let person"> {{person.homeworld}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showDetails(row)"></mat-row>
+    </mat-table>
+
+    <div class="paginator-container">
+      <mat-form-field appearance="fill">
+        <mat-label>Choose Page</mat-label>
+        <input matInput type="number" [(ngModel)]="selectedPage" (ngModelChange)="onPageSelect()" min="1" [max]="9">
+      </mat-form-field>
+      <mat-paginator
+        [pageSizeOptions]="[10, 20, 50]"
+        [pageSize]="10"
+        [length]="totalItems"
+        (page)="goToPage($event.pageIndex + 1)">
+      </mat-paginator>
+    </div>
+
+  </div>
+</div>

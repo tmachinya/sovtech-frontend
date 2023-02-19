@@ -1,0 +1,18 @@
+
+.table-container {
+  flex-basis: 75%;
+}
+
+.details-container {
+  flex-basis: 25%;
+}
+.paginator-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.page-field {
+  margin-left: 10px;
+}
+

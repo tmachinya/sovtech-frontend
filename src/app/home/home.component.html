@@ -41,7 +41,11 @@
         <mat-header-cell *matHeaderCellDef> Homeworld</mat-header-cell>
         <mat-cell *matCellDef="let person"> {{person.homeworld}} </mat-cell>
       </ng-container>
-
+      <ng-container *ngIf="noDataFound">
+        <tr>
+          <td colspan="5" class="mat-column-name">No records found</td>
+        </tr>
+      </ng-container>
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
       <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="showDetails(row)"></mat-row>
     </mat-table>

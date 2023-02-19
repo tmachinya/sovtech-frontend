@@ -18,14 +18,13 @@ export class HomeComponent implements OnInit{
   public searchKey: any;
   public totalItems: number=0;
   public isLoading: boolean = false;
+  public  noDataFound: boolean = false;
   public pageEvent: PageEvent | undefined;
   public dataSource: MatTableDataSource<Person> | any;
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort | any;
   public displayedColumns: string[] = ['name', 'height', 'mass', 'gender', 'homeworld'];
   public page: number = 1; // current page number
- public people: Person[] | undefined ;
-
   constructor(
     private peopleService: PeopleService,
     private dialog: MatDialog,
@@ -53,9 +52,11 @@ export class HomeComponent implements OnInit{
     this.peopleService.getPeopleByPage(page).subscribe(
       people => {
         this.dataSource = new MatTableDataSource<Person>(people);
+        this.isLoading = false;
+        this.noDataFound = people.length === 0;
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
-        this.isLoading = false;
+
       },
       error => {
         console.log(error)

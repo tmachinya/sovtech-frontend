@@ -53,6 +53,8 @@ export class HomeComponent implements OnInit{
     this.peopleService.getPeopleByPage(page).subscribe(
       people => {
         this.dataSource = new MatTableDataSource<Person>(people);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
         this.isLoading = false;
       },
       error => {

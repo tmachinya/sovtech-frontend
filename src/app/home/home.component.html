@@ -1,5 +1,5 @@
 <div class="container">
-  <div class="mat-elevation-z8 table-container" style="max-height: 400px;">
+  <div class="mat-elevation-z8 table-container">
     <div class="search-div">
       <mat-form-field class="search-form-field left">
         <input matInput
@@ -10,7 +10,7 @@
         <button matSuffix
                 *ngIf="searchKey"
                 aria-label="Clear"
-                matTextSuffix
+                matTextSuffix=""
                 mat-icon-button
                 (click)="onSearchClear()">
           <mat-icon>close</mat-icon>

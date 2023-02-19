@@ -13,18 +13,18 @@ import {MatDialog} from "@angular/material/dialog";
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit{
-  selectedPage = 1;
-  totalPages: any;
-  searchKey: any;
-  totalItems: number | undefined;
-  isLoading = false;
-  pageEvent: PageEvent | undefined;
-  dataSource: MatTableDataSource<Person> | any;
+  public selectedPage: number = 1;
+  public totalPages: number = 9;
+  public searchKey: any;
+  public totalItems: number=0;
+  public isLoading: boolean = false;
+  public pageEvent: PageEvent | undefined;
+  public dataSource: MatTableDataSource<Person> | any;
   @ViewChild(MatPaginator) paginator: MatPaginator | any;
   @ViewChild(MatSort) sort: MatSort | any;
-  displayedColumns: string[] = ['name', 'height', 'mass', 'gender', 'homeworld'];
-  page = 1; // current page number
-  people: Person[] | undefined ;
+  public displayedColumns: string[] = ['name', 'height', 'mass', 'gender', 'homeworld'];
+  public page: number = 1; // current page number
+ public people: Person[] | undefined ;
 
   constructor(
     private peopleService: PeopleService,
@@ -37,28 +37,26 @@ export class HomeComponent implements OnInit{
 
   loadPeople(): void {
     this.isLoading = true;
-    this.peopleService.getPeopleByPage(this.page).subscribe(
-      people => {
-        this.dataSource = new MatTableDataSource<Person>(people);
-        this.isLoading = false;
-      }
-    );
+    this.loadPeopleBasedOnPage(this.page)
   }
 
   goToPage(page: number): void {
     this.page = page;
     this.loadPeople();
   }
-  onPageSelect() {
+  onPageSelect(): void {
     this.isLoading = true;
-    this.peopleService.getPeopleByPage(this.selectedPage).subscribe(
+    this.loadPeopleBasedOnPage(this.selectedPage)
+  }
+
+  loadPeopleBasedOnPage(page: number): void{
+    this.peopleService.getPeopleByPage(page).subscribe(
       people => {
         this.dataSource = new MatTableDataSource<Person>(people);
-        this.totalPages = Math.ceil(people.length/ 10);
         this.isLoading = false;
       },
       error => {
-        // console.log(error);
+        console.log(error)
         this.isLoading = false;
       }
     );

@@ -15,5 +15,6 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 3. Top left is the search button to search the current listing by any column
 4. At the bottom right, there is an input field, where you can select page numbers, refreshing the list to the selected page
 5. there is also frontend pagination to limit viewing to minimum 5
+6. Click any row and will show the person's Details Page on a dialog, and close it to return to the previously active People page
 
 
